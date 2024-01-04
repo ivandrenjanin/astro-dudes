@@ -5,6 +5,9 @@ public partial class Player : CharacterBody2D
 {
 	[Export]
 	public float Speed { get; set; } = 300.0f;
+	[Export]
+	public double RateOfFire { get; set; } = 0.25;
+	public bool shootCd = false;
 
 	[Signal]
 	public delegate void LaserShotEventHandler(PackedScene laserScene, Vector2 location);
@@ -18,10 +21,16 @@ public partial class Player : CharacterBody2D
 		muzzle = GetNode<Marker2D>("Muzzle");
 	}
 
-	public override void _Process(double delta)
+	public override async void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("shoot"))
-			Shoot();
+		if (Input.IsActionPressed("shoot"))
+			if (!shootCd)
+			{
+				shootCd = true;
+				Shoot();
+				await ToSignal(GetTree().CreateTimer(RateOfFire), "timeout");
+				shootCd = false;
+			}
 	}
 
 	public override void _PhysicsProcess(double delta)
