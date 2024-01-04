@@ -33,4 +33,9 @@ public partial class Scout : Area2D
 			Die();
 		}
 	}
+
+	public void OnScoutScreenExited()
+	{
+		QueueFree();
+	}
 }
