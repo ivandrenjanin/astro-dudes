@@ -18,5 +18,14 @@ public partial class Laser : Area2D
 		QueueFree();
 	}
 
+	public void OnAreaEntered(Area2D area)
+	{
+		if (area.GetType() == typeof(Scout))
+		{
+			Scout scout = (Scout)area;
+			scout.Die();
+			QueueFree();
+		}
+	}
 
 }

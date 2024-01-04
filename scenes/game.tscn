@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2tf0f7dbc7ra"]
+[gd_scene load_steps=4 format=3 uid="uid://b2tf0f7dbc7ra"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_poejj"]
 [ext_resource type="PackedScene" uid="uid://b2ynk2cqee3mk" path="res://scenes/player.tscn" id="2_ps82i"]
+[ext_resource type="PackedScene" uid="uid://cw6luemk7eoqm" path="res://scenes/scout.tscn" id="3_i5vcc"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_poejj")
@@ -13,3 +14,6 @@ position = Vector2(147, 661)
 position = Vector2(270, 850)
 
 [node name="LaserContainer" type="Node2D" parent="."]
+
+[node name="Scout" parent="." instance=ExtResource("3_i5vcc")]
+position = Vector2(141, 85)

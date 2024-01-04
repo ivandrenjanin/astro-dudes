@@ -107,6 +107,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(2, 2)
+collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_ou58l")
 
@@ -116,13 +117,15 @@ sprite_frames = SubResource("SpriteFrames_bg0cl")
 autoplay = "default"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-15, 5, -5, -4, -1, -13, 1, -13, 5, -4, 15, 5, 15, 12, 3, 7, 3, 14, -3, 14, -3, 7, -15, 12)
 
 [node name="EngineAnimated" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_oddc7")
 animation = &"movement_up"
 autoplay = "idle"
-frame_progress = 0.0427836
+frame_progress = 0.319855
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(0, -15)

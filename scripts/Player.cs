@@ -52,4 +52,9 @@ public partial class Player : CharacterBody2D
 	{
 		EmitSignal(SignalName.LaserShot, laser, muzzle.GlobalPosition);
 	}
+
+	public void Die()
+	{
+		QueueFree();
+	}
 }
