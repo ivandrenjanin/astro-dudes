@@ -18,13 +18,9 @@ public partial class Game : Node2D
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionPressed("quit"))
-		{
 			GetTree().Quit();
-		}
 		else if (Input.IsActionJustPressed("reset"))
-		{
 			GetTree().ReloadCurrentScene();
-		}
 	}
 
 	public void OnPlayerLaserShot(PackedScene laserScene, Vector2 location)

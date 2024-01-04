@@ -21,26 +21,19 @@ public partial class Player : CharacterBody2D
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("shoot"))
-		{
 			Shoot();
-		}
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 
-
 		var engineAnimated = GetNode<AnimatedSprite2D>("EngineAnimated");
 
 		if (direction != Vector2.Zero)
-		{
 			engineAnimated.Animation = "movement_up";
-		}
 		else
-		{
 			engineAnimated.Animation = "idle";
-		}
 
 		Velocity = direction * Speed;
 		MoveAndSlide();
