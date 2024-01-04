@@ -1,0 +1,128 @@
+[gd_scene load_steps=17 format=3 uid="uid://b2ynk2cqee3mk"]
+
+[ext_resource type="Texture2D" uid="uid://h50sxm4ja4ho" path="res://assets/player/Main Ship - Base - Full health.png" id="1_j1d6c"]
+[ext_resource type="Script" path="res://scripts/Player.cs" id="1_ou58l"]
+[ext_resource type="Texture2D" uid="uid://5cu1ftprqgro" path="res://assets/player/Main Ship - Base - Damaged.png" id="2_jy3o0"]
+[ext_resource type="Texture2D" uid="uid://nlamvgnpn4be" path="res://assets/player/Main Ship - Base - Very damaged.png" id="3_3l3kb"]
+[ext_resource type="Texture2D" uid="uid://bnifmni1ktlks" path="res://assets/player/engines/Main Ship - Engines - Base Engine - Idle.png" id="3_pksp7"]
+[ext_resource type="Texture2D" uid="uid://bsdnnuhedkfww" path="res://assets/player/Main Ship - Base - Slight damage.png" id="4_es2rl"]
+[ext_resource type="Texture2D" uid="uid://ceeyc48sv6shh" path="res://assets/player/engines/Main Ship - Engines - Base Engine - Powering.png" id="4_syflw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bg0cl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jy3o0")
+}],
+"loop": true,
+"name": &"damaged",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_3l3kb")
+}],
+"loop": true,
+"name": &"damaged_major",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_es2rl")
+}],
+"loop": true,
+"name": &"damaged_minor",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_j1d6c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukjks"]
+atlas = ExtResource("3_pksp7")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rw0is"]
+atlas = ExtResource("3_pksp7")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnv7f"]
+atlas = ExtResource("3_pksp7")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fgpxn"]
+atlas = ExtResource("4_syflw")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10oen"]
+atlas = ExtResource("4_syflw")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn63b"]
+atlas = ExtResource("4_syflw")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugpy5"]
+atlas = ExtResource("4_syflw")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oddc7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukjks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rw0is")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnv7f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fgpxn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10oen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn63b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugpy5")
+}],
+"loop": true,
+"name": &"movement_up",
+"speed": 16.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+scale = Vector2(2, 2)
+motion_mode = 1
+script = ExtResource("1_ou58l")
+
+[node name="ShipAnimated" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_bg0cl")
+autoplay = "default"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-15, 5, -5, -4, -1, -13, 1, -13, 5, -4, 15, 5, 15, 12, 3, 7, 3, 14, -3, 14, -3, 7, -15, 12)
+
+[node name="EngineAnimated" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oddc7")
+animation = &"movement_up"
+autoplay = "idle"
+frame_progress = 0.0427836
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(0, -15)

@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://b2tf0f7dbc7ra"]
+[gd_scene load_steps=3 format=3 uid="uid://b2tf0f7dbc7ra"]
+
+[ext_resource type="Script" path="res://scripts/Game.cs" id="1_poejj"]
+[ext_resource type="PackedScene" uid="uid://b2ynk2cqee3mk" path="res://scenes/player.tscn" id="2_ps82i"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_poejj")
+
+[node name="Player" parent="." instance=ExtResource("2_ps82i")]
+position = Vector2(147, 661)
+
+[node name="PlayerSpawnPosition" type="Marker2D" parent="."]
+position = Vector2(270, 850)
+
+[node name="LaserContainer" type="Node2D" parent="."]

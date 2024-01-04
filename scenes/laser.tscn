@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dry01o7vdvyil"]
+
+[ext_resource type="Script" path="res://scripts/Laser.cs" id="1_2cqpn"]
+[ext_resource type="Texture2D" uid="uid://ouuvgtmognxg" path="res://assets/player/weapon_effects/laserRed01.png" id="1_lbmmj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6xgii"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lbmmj")
+}],
+"loop": true,
+"name": &"weapon_default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_634e2"]
+radius = 2.0
+height = 22.0
+
+[node name="Laser" type="Area2D"]
+script = ExtResource("1_2cqpn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_6xgii")
+animation = &"weapon_default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_634e2")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 15)
+scale = Vector2(0.2, 0.15)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnLaserScreenExited"]
