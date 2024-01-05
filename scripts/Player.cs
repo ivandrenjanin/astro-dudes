@@ -53,8 +53,8 @@ public partial class Player : CharacterBody2D
 
 		// Screen Wrap Example
 		GlobalPosition = new Vector2(
-			x: Mathf.Wrap(GlobalPosition.X, 0, screenSize.X),
-			y: Mathf.Wrap(GlobalPosition.Y, 0, screenSize.Y)
+			x: Mathf.PosMod(GlobalPosition.X, screenSize.X),
+			y: GlobalPosition.Y
 		);
 	}
 
