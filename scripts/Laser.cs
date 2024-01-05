@@ -5,6 +5,8 @@ public partial class Laser : Area2D
 {
 	[Export]
 	public float Speed { get; set; } = 600.0f;
+	[Export]
+	public byte Damage { get; set; } = 1;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -22,8 +24,8 @@ public partial class Laser : Area2D
 	{
 		if (area.GetType() == typeof(Enemy))
 		{
-			Enemy scout = (Enemy)area;
-			scout.Die();
+			Enemy enemy = (Enemy)area;
+			enemy.TakeDamage(Damage);
 			QueueFree();
 		}
 	}

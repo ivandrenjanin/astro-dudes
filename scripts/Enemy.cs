@@ -5,6 +5,8 @@ public partial class Enemy : Area2D
 {
 	[Export]
 	public float Speed { get; set; } = 150.0f;
+	[Export]
+	public byte HitPoints { get; set; } = 1;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -22,6 +24,16 @@ public partial class Enemy : Area2D
 	public void Die()
 	{
 		QueueFree();
+	}
+
+	public void TakeDamage(byte amount)
+	{
+		HitPoints = (byte)Math.Max(0, HitPoints - amount);
+
+		if (HitPoints == 0)
+		{
+			Die();
+		}
 	}
 
 	public void OnBodyEntered(Node2D body)

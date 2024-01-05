@@ -86,7 +86,7 @@ animations = [{
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_smv5m")
-Speed = 400.0
+Speed = 350.0
 
 [node name="ShipAnimated" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

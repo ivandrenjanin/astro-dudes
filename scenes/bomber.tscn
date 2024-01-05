@@ -81,6 +81,7 @@ animations = [{
 
 [node name="Bomber" instance=ExtResource("1_o5vg8")]
 Speed = 150.0
+HitPoints = 2
 
 [node name="ShipAnimated" parent="." index="0"]
 scale = Vector2(1.4, 1.4)

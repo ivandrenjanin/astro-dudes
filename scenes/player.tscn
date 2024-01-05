@@ -125,7 +125,7 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_oddc7")
 animation = &"movement_up"
 autoplay = "idle"
-frame_progress = 0.554318
+frame_progress = 0.782653
 
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(0, -15)
