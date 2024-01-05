@@ -23,14 +23,13 @@ public partial class Player : CharacterBody2D
 
 	public override async void _Process(double delta)
 	{
-		if (Input.IsActionPressed("shoot"))
-			if (!shootCd)
-			{
-				shootCd = true;
-				Shoot();
-				await ToSignal(GetTree().CreateTimer(RateOfFire), "timeout");
-				shootCd = false;
-			}
+		if (Input.IsActionPressed("shoot") && !shootCd)
+		{
+			shootCd = true;
+			Shoot();
+			await ToSignal(GetTree().CreateTimer(RateOfFire), "timeout");
+			shootCd = false;
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -46,6 +45,17 @@ public partial class Player : CharacterBody2D
 
 		Velocity = direction * Speed;
 		MoveAndSlide();
+
+		var screenSize = GetViewportRect().Size;
+
+		// Clamp Example
+		// GlobalPosition = GlobalPosition.Clamp(Vector2.Zero, screenSize);
+
+		// Screen Wrap Example
+		GlobalPosition = new Vector2(
+			x: Mathf.Wrap(GlobalPosition.X, 0, screenSize.X),
+			y: Mathf.Wrap(GlobalPosition.Y, 0, screenSize.Y)
+		);
 	}
 
 	public void Shoot()
