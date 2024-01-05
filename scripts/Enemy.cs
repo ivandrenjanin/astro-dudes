@@ -9,25 +9,48 @@ public partial class Enemy : Area2D
 	public byte HitPoints { get; set; } = 1;
 	[Export]
 	public uint ScorePointValue { get; set; } = 50;
-
 	[Signal]
 	public delegate void DestroyedEnemyEventHandler(uint scorePointValue);
+	[Signal]
+	public delegate void HitEnemyEventHandler();
+
+	public bool isDestroyed = false;
+	public AnimatedSprite2D shipAnimated;
+	public AnimatedSprite2D engineAnimated;
+	public CollisionShape2D hitbox;
+
+	public override void _Ready()
+	{
+		shipAnimated = GetNode<AnimatedSprite2D>("ShipAnimated");
+		engineAnimated = GetNode<AnimatedSprite2D>("EngineAnimated");
+		shipAnimated.Connect("animation_finished", new Callable(this, nameof(OnScoutScreenExited)));
+
+		hitbox = GetNode<CollisionShape2D>("CollisionShape2D");
+	}
+
 
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 newPosition = GlobalPosition;
-		newPosition.Y += Speed * (float)delta;
-		GlobalPosition = newPosition;
+		if (!isDestroyed)
+		{
+			Vector2 newPosition = GlobalPosition;
+			newPosition.Y += Speed * (float)delta;
+			GlobalPosition = newPosition;
+		}
 	}
 
 	public void Destroy(bool shouldScore)
 	{
-		if (shouldScore)
+		hitbox.SetDeferred("disabled", true);
+		isDestroyed = true;
+
+		if (shouldScore && isDestroyed)
 		{
 			EmitSignal(SignalName.DestroyedEnemy, ScorePointValue);
 		}
 
-		QueueFree();
+		engineAnimated.Visible = false;
+		shipAnimated.Animation = "destroy";
 	}
 
 	public void TakeDamage(byte amount)
@@ -37,6 +60,10 @@ public partial class Enemy : Area2D
 		if (HitPoints == 0)
 		{
 			Destroy(true);
+		}
+		else
+		{
+			EmitSignal(SignalName.HitEnemy);
 		}
 	}
 
