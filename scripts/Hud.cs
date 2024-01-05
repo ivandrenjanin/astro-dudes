@@ -4,7 +4,6 @@ using System;
 public partial class Hud : Control
 {
 	public Label ScoreLabel;
-
 	private uint _score;
 	public uint Score
 	{
@@ -15,8 +14,6 @@ public partial class Hud : Control
 			ScoreLabel.Text = "SCORE: " + Convert.ToString(value);
 		}
 	}
-
-
 
 	public override void _Ready()
 	{
