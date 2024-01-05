@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Scout : Area2D
+public partial class Enemy : Area2D
 {
 	[Export]
 	public float Speed { get; set; } = 150.0f;

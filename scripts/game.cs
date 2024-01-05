@@ -41,7 +41,7 @@ public partial class Game : Node2D
 	public void OnEnemySpawnTimerTimeout()
 	{
 		var scene = EnemyScenes[GD.RandRange(0, 1)];
-		var enemy = scene.Instantiate<Scout>();
+		var enemy = scene.Instantiate<Enemy>();
 		enemy.GlobalPosition = new Vector2(
 			x: GD.RandRange(50, 500),
 			y: -50

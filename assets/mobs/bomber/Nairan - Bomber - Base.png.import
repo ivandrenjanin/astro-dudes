@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5a4y7dh4obdh"
-path="res://.godot/imported/Nairan - Bomber - Base.png-8e101cbaa73dfa021c07a61d38e0af96.ctex"
+path="res://.godot/imported/Nairan - Bomber - Base.png-d060ad323fc867abf0f8bdf4a7e178a2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mobs/diver/Nairan - Bomber - Base.png"
-dest_files=["res://.godot/imported/Nairan - Bomber - Base.png-8e101cbaa73dfa021c07a61d38e0af96.ctex"]
+source_file="res://assets/mobs/bomber/Nairan - Bomber - Base.png"
+dest_files=["res://.godot/imported/Nairan - Bomber - Base.png-d060ad323fc867abf0f8bdf4a7e178a2.ctex"]
 
 [params]
 

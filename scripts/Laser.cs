@@ -20,9 +20,9 @@ public partial class Laser : Area2D
 
 	public void OnAreaEntered(Area2D area)
 	{
-		if (area.GetType() == typeof(Scout))
+		if (area.GetType() == typeof(Enemy))
 		{
-			Scout scout = (Scout)area;
+			Enemy scout = (Enemy)area;
 			scout.Die();
 			QueueFree();
 		}

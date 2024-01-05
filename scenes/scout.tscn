@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://cw6luemk7eoqm"]
 
-[ext_resource type="Script" path="res://scripts/Scout.cs" id="1_6ul0o"]
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_smv5m"]
 [ext_resource type="Texture2D" uid="uid://bv8dkwol0owa" path="res://assets/mobs/scout/Nairan - Scout - Base.png" id="1_subkf"]
 [ext_resource type="Texture2D" uid="uid://dysg2hr5ighyt" path="res://assets/mobs/scout/Nairan - Scout - Engine.png" id="2_bwxbx"]
 
@@ -85,7 +85,8 @@ animations = [{
 [node name="Scout" type="Area2D"]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_6ul0o")
+script = ExtResource("1_smv5m")
+Speed = 400.0
 
 [node name="ShipAnimated" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
