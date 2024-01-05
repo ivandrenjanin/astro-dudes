@@ -16,7 +16,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dnxj"]
-size = Vector2(22, 21)
+size = Vector2(31, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ocoku"]
 atlas = ExtResource("2_bwxbx")
@@ -100,11 +100,10 @@ shape = SubResource("RectangleShape2D_2dnxj")
 texture_filter = 1
 rotation = -3.14159
 sprite_frames = SubResource("SpriteFrames_i1dvd")
-frame_progress = 0.569727
+autoplay = "default"
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-2.84217e-14, -29)
 scale = Vector2(0.4, 0.4)
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnScoutScreenExited"]
