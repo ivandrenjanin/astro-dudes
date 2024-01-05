@@ -8,14 +8,12 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public double RateOfFire { get; set; } = 0.25;
 	public bool shootCd = false;
+	public Marker2D muzzle;
+	public PackedScene laser = GD.Load<PackedScene>("res://scenes/laser.tscn");
 
 	[Signal]
 	public delegate void LaserShotEventHandler(PackedScene laserScene, Vector2 location);
 
-	public PackedScene laser = GD.Load<PackedScene>("res://scenes/laser.tscn");
-	public Marker2D muzzle;
-
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		muzzle = GetNode<Marker2D>("Muzzle");
@@ -63,7 +61,7 @@ public partial class Player : CharacterBody2D
 		EmitSignal(SignalName.LaserShot, laser, muzzle.GlobalPosition);
 	}
 
-	public void Die()
+	public void Destroy()
 	{
 		QueueFree();
 	}

@@ -5,10 +5,23 @@ public partial class Game : Node2D
 {
 	[Export]
 	public PackedScene[] EnemyScenes;
-	public Player player = null;
+	public Player player;
 	public Node2D laserContainer;
 	public Node2D enemyContainer;
 	public Timer enemySpawnTimer;
+	public Hud hud;
+
+	private uint _score = 0;
+	public uint Score
+	{
+		get { return _score; }
+		set
+		{
+			_score = value;
+			hud.Score = _score;
+		}
+	}
+
 	public override void _Ready()
 	{
 		var spawnMarker = GetNode<Marker2D>("PlayerSpawnPosition");
@@ -19,8 +32,10 @@ public partial class Game : Node2D
 
 		laserContainer = GetNode<Node2D>("LaserContainer");
 		enemyContainer = GetNode<Node2D>("EnemyContainer");
+		hud = GetNode<Hud>("UILayer/HUD");
 
 		player.Connect("LaserShot", new Callable(this, nameof(OnPlayerLaserShot)));
+		Score = 0;
 	}
 
 	public override void _Process(double delta)
@@ -46,6 +61,13 @@ public partial class Game : Node2D
 			x: GD.RandRange(50, 500),
 			y: -50
 		);
+		enemy.Connect("DestroyedEnemy", new Callable(this, nameof(OnDestroyedEnemy)));
 		enemyContainer.AddChild(enemy);
+	}
+
+	public void OnDestroyedEnemy(uint scorePointValue)
+	{
+		Score += scorePointValue;
+		GD.Print("Enemy Destroyed: ", Score);
 	}
 }

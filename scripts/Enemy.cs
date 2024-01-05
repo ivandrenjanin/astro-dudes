@@ -7,13 +7,12 @@ public partial class Enemy : Area2D
 	public float Speed { get; set; } = 150.0f;
 	[Export]
 	public byte HitPoints { get; set; } = 1;
+	[Export]
+	public uint ScorePointValue { get; set; } = 50;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+	[Signal]
+	public delegate void DestroyedEnemyEventHandler(uint scorePointValue);
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 newPosition = GlobalPosition;
@@ -21,8 +20,9 @@ public partial class Enemy : Area2D
 		GlobalPosition = newPosition;
 	}
 
-	public void Die()
+	public void Destroy()
 	{
+		EmitSignal(SignalName.DestroyedEnemy, ScorePointValue);
 		QueueFree();
 	}
 
@@ -32,7 +32,7 @@ public partial class Enemy : Area2D
 
 		if (HitPoints == 0)
 		{
-			Die();
+			Destroy();
 		}
 	}
 
@@ -41,8 +41,8 @@ public partial class Enemy : Area2D
 		if (body.GetType() == typeof(Player))
 		{
 			Player player = (Player)body;
-			player.Die();
-			Die();
+			player.Destroy();
+			Destroy();
 		}
 	}
 

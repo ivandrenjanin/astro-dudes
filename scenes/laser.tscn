@@ -15,8 +15,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_634e2"]
-radius = 2.0
-height = 22.0
+radius = 3.0
+height = 34.0
 
 [node name="Laser" type="Area2D"]
 collision_layer = 4
@@ -25,7 +25,7 @@ script = ExtResource("1_2cqpn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.4, 0.4)
+scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_6xgii")
 animation = &"weapon_default"
 
@@ -33,7 +33,7 @@ animation = &"weapon_default"
 shape = SubResource("CapsuleShape2D_634e2")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(0, 15)
+position = Vector2(0, 21)
 scale = Vector2(0.2, 0.15)
 
 [connection signal="area_entered" from="." to="." method="OnAreaEntered"]
