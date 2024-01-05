@@ -8,11 +8,14 @@ public partial class Player : CharacterBody2D
 	[Export]
 	public double RateOfFire { get; set; } = 0.25;
 	public bool shootCd = false;
+	public bool isDestroyed = false;
 	public Marker2D muzzle;
 	public PackedScene laser = GD.Load<PackedScene>("res://scenes/laser.tscn");
 
 	[Signal]
 	public delegate void LaserShotEventHandler(PackedScene laserScene, Vector2 location);
+	[Signal]
+	public delegate void DestroyedPlayerEventHandler();
 
 	public override void _Ready()
 	{
@@ -63,6 +66,8 @@ public partial class Player : CharacterBody2D
 
 	public void Destroy()
 	{
+		isDestroyed = true;
+		EmitSignal(SignalName.DestroyedPlayer);
 		QueueFree();
 	}
 }

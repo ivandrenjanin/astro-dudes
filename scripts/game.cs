@@ -10,6 +10,7 @@ public partial class Game : Node2D
 	public Node2D enemyContainer;
 	public Timer enemySpawnTimer;
 	public Hud hud;
+	public GameOverScreen gameOverScreen;
 
 	private uint _score = 0;
 	public uint Score
@@ -22,8 +23,20 @@ public partial class Game : Node2D
 		}
 	}
 
+	public uint _highScore;
+	public uint HighScore
+	{
+		get { return _highScore; }
+		set
+		{
+			_highScore = value;
+		}
+	}
+
 	public override void _Ready()
 	{
+		HighScore = LoadGame();
+
 		var spawnMarker = GetNode<Marker2D>("PlayerSpawnPosition");
 		enemySpawnTimer = GetNode<Timer>("EnemySpawnTimer");
 
@@ -34,7 +47,11 @@ public partial class Game : Node2D
 		enemyContainer = GetNode<Node2D>("EnemyContainer");
 		hud = GetNode<Hud>("UILayer/HUD");
 
+		gameOverScreen = GetNode<GameOverScreen>("UILayer/GameOverScreen");
+
 		player.Connect("LaserShot", new Callable(this, nameof(OnPlayerLaserShot)));
+		player.Connect("DestroyedPlayer", new Callable(this, nameof(OnDestroyedPlayer)));
+
 		Score = 0;
 	}
 
@@ -44,6 +61,28 @@ public partial class Game : Node2D
 			GetTree().Quit();
 		else if (Input.IsActionJustPressed("reset"))
 			GetTree().ReloadCurrentScene();
+	}
+
+
+	public void SaveGame()
+	{
+		using var saveFile = FileAccess.Open("user://save.data", FileAccess.ModeFlags.Write);
+		saveFile.Store32(HighScore);
+	}
+
+	public static uint LoadGame()
+	{
+		using var saveFile = FileAccess.Open("user://save.data", FileAccess.ModeFlags.Read);
+
+		if (saveFile != null)
+		{
+			return saveFile.Get32();
+		}
+		else
+		{
+			return 0;
+		}
+
 	}
 
 	public void OnPlayerLaserShot(PackedScene laserScene, Vector2 location)
@@ -67,7 +106,25 @@ public partial class Game : Node2D
 
 	public void OnDestroyedEnemy(uint scorePointValue)
 	{
-		Score += scorePointValue;
+		if (!player.isDestroyed)
+		{
+			Score += scorePointValue;
+		}
+
+		if (Score > HighScore)
+		{
+			HighScore = Score;
+		}
+
 		GD.Print("Enemy Destroyed: ", Score);
+	}
+
+	public async void OnDestroyedPlayer()
+	{
+		gameOverScreen.SetScore(Score);
+		gameOverScreen.SetHighScore(HighScore);
+		SaveGame();
+		await ToSignal(GetTree().CreateTimer(1.5), "timeout");
+		gameOverScreen.Visible = true;
 	}
 }

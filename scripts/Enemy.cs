@@ -20,9 +20,13 @@ public partial class Enemy : Area2D
 		GlobalPosition = newPosition;
 	}
 
-	public void Destroy()
+	public void Destroy(bool shouldScore)
 	{
-		EmitSignal(SignalName.DestroyedEnemy, ScorePointValue);
+		if (shouldScore)
+		{
+			EmitSignal(SignalName.DestroyedEnemy, ScorePointValue);
+		}
+
 		QueueFree();
 	}
 
@@ -32,7 +36,7 @@ public partial class Enemy : Area2D
 
 		if (HitPoints == 0)
 		{
-			Destroy();
+			Destroy(true);
 		}
 	}
 
@@ -42,7 +46,7 @@ public partial class Enemy : Area2D
 		{
 			Player player = (Player)body;
 			player.Destroy();
-			Destroy();
+			Destroy(false);
 		}
 	}
 

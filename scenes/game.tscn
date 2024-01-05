@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2tf0f7dbc7ra"]
+[gd_scene load_steps=7 format=3 uid="uid://b2tf0f7dbc7ra"]
 
 [ext_resource type="Script" path="res://scripts/Game.cs" id="1_poejj"]
 [ext_resource type="PackedScene" uid="uid://b2ynk2cqee3mk" path="res://scenes/player.tscn" id="2_ps82i"]
 [ext_resource type="PackedScene" uid="uid://cw6luemk7eoqm" path="res://scenes/scout.tscn" id="3_i5vcc"]
 [ext_resource type="PackedScene" uid="uid://bcs0bwg4bhrvg" path="res://scenes/bomber.tscn" id="3_mmdn8"]
 [ext_resource type="PackedScene" uid="uid://ltbwpghyj6dk" path="res://scenes/hud.tscn" id="4_706dy"]
+[ext_resource type="PackedScene" uid="uid://uurew6ji8c8e" path="res://scenes/game_over_screen.tscn" id="5_5t5s1"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_poejj")
@@ -13,6 +14,9 @@ EnemyScenes = Array[PackedScene]([ExtResource("3_i5vcc"), ExtResource("3_mmdn8")
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="UILayer" instance=ExtResource("4_706dy")]
+
+[node name="GameOverScreen" parent="UILayer" instance=ExtResource("5_5t5s1")]
+visible = false
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 autostart = true
